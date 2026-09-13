@@ -123,27 +123,24 @@
    as a separate, playful "sneak peek" moment rather than the real gift.
    Scoped local variables below so none of this leaks into the main theme.
    ========================================================================== */
-.teaser-gate{
-  --tz-bg-1:#040a1a;
-  --tz-bg-2:#0a1533;
-  --tz-accent:#22d3ee;
-  --tz-accent-2:#facc15;
-  --tz-text:#eaf6ff;
-  --tz-text-dim:#7c93b8;
-
-  position:fixed;
-  inset:0;
-  z-index:95;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:2rem;
-  text-align:center;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(34,211,238,0.18), transparent 65%),
-    radial-gradient(ellipse 60% 50% at 80% 90%, rgba(250,204,21,0.10), transparent 60%),
-    linear-gradient(160deg, var(--tz-bg-1) 0%, var(--tz-bg-2) 100%);
-  transition:opacity 0.8s ease, visibility 0.8s ease;
+.teaser-gate {
+	--tz-bg-1: #040a1a;
+	--tz-bg-2: #0a1533;
+	--tz-accent: #22d3ee;
+	--tz-accent-2: #facc15;
+	--tz-text: #eaf6ff;
+	--tz-text-dim: #7c93b8;
+	position: fixed;
+	inset: 0;
+	z-index: 95;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+	text-align: center;
+	background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(34,211,238,0.18), transparent 65%), radial-gradient(ellipse 60% 50% at 80% 90%, rgba(250,204,21,0.10), transparent 60%), linear-gradient(160deg, var(--tz-bg-1) 0%, var(--tz-bg-2) 100%);
+	transition: opacity 0.8s ease, visibility 0.8s ease;
+	overflow: scroll;
 }
 .teaser-gate.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
 
