@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>A Little Secret for Drishti</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/loading.css">
+<link rel="stylesheet" href="css/effects.css">
+</head>
+<body>
+
+<!-- ================= LOADING SCREEN ================= -->
+<!-- <div id="loading-screen">
+  <div class="loader-heart">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg>
+  </div>
+  <p class="loader-text">Loading our story<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+  <div class="loader-bar"><div class="loader-bar-fill" id="loaderFill"></div></div>
+</div> -->
+
+<!-- ================= AMBIENT / GLOBAL EFFECTS ================= -->
+<div id="bg-canvas"></div>
+<div class="floating-hearts" id="floatingHearts" aria-hidden="true"></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+<div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+<div class="fireworks-layer" id="fireworksLayer" aria-hidden="true"></div>
+
+<!-- ================= TEASER GATE ================= -->
+<!-- Shows BEFORE the main countdown gate. Deliberately opposite in theme
+     (cool electric blue instead of warm romantic pink) so it reads as a
+     separate, playful "sneak peek" rather than the real gift. Blocks
+     until an exact date/time (set in js/teaser-gate.js), then reveals a
+     couple of funny photos before handing off to the main gate. -->
+<div id="teaserGate" class="teaser-gate">
+  <div class="teaser-inner">
+
+    <div class="teaser-countdown-view" id="teaserCountdownView">
+      <div class="teaser-eyebrow">Shhh… A Secret</div>
+      <h1 class="teaser-heading">Not the surprise. Yet.</h1>
+      <p class="teaser-lead">Come back at <span id="teaserTimeLabel">the right time</span> for a little sneak peek — don't tell anyone. 👀</p>
+      <div class="teaser-countdown-grid">
+        <div class="teaser-countdown-box"><span class="num" id="tcDays">00</span><span class="label">days</span></div>
+        <div class="teaser-countdown-box"><span class="num" id="tcHours">00</span><span class="label">hours</span></div>
+        <div class="teaser-countdown-box"><span class="num" id="tcMinutes">00</span><span class="label">minutes</span></div>
+        <div class="teaser-countdown-box"><span class="num" id="tcSeconds">00</span><span class="label">seconds</span></div>
+      </div>
+    </div>
+
+    <div class="teaser-reveal-view" id="teaserRevealView">
+      <div class="teaser-eyebrow">Sneak Peek</div>
+      <h1 class="teaser-heading">Okay, fine. Here's a peek.</h1>
+      <div class="teaser-photo-row">
+        <div class="teaser-photo">
+          <img src="assets/images/teaser1.jpg" alt="Sneak peek one" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="placeholder-ph" style="display:none;">🎉<br>add teaser1.jpg</div>
+        </div>
+        <div class="teaser-photo">
+          <img src="assets/images/teaser2.jpg" alt="Sneak peek two" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="placeholder-ph" style="display:none;">🎉<br>add teaser2.jpg</div>
+        </div>
+      </div>
+      <p class="teaser-funny-msg">This is NOT your birthday surprise — that one's still locked up tight. 😏 Consider this a bribe to keep you patient.</p>
+      <button class="teaser-next-btn" id="teaserNextBtn">
+        Next
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <!-- Waiting-room mini-screen 1: compliment generator -->
+    <div class="teaser-reveal-view" id="teaserComplimentView">
+      <div class="teaser-eyebrow">While You Wait</div>
+      <h1 class="teaser-heading">Free compliment machine</h1>
+      <p class="teaser-lead">Tap it as many times as you want. It never runs out.</p>
+      <div class="teaser-compliment-box">
+        <p id="teaserComplimentText">Tap below to begin.</p>
+      </div>
+      <button class="teaser-secondary-btn" id="teaserComplimentBtn">Give me another 💫</button>
+      <button class="teaser-next-btn" id="teaserComplimentNextBtn">
+        Next
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <!-- Waiting-room mini-screen 2: guess the surprise -->
+    <div class="teaser-reveal-view" id="teaserGuessView">
+      <div class="teaser-eyebrow">Quick Game</div>
+      <h1 class="teaser-heading">Guess what's coming</h1>
+      <p class="teaser-lead">Pick one. I promise a completely honest, very helpful answer.</p>
+      <div class="teaser-guess-options" id="teaserGuessOptions">
+        <button class="teaser-guess-btn">A dragon</button>
+        <button class="teaser-guess-btn">World peace</button>
+        <button class="teaser-guess-btn">Unlimited pizza</button>
+        <button class="teaser-guess-btn">Me, apologizing for this website</button>
+      </div>
+      <p class="teaser-guess-answer" id="teaserGuessAnswer"></p>
+      <button class="teaser-next-btn hidden" id="teaserGuessNextBtn">
+        Next
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <!-- Waiting-room mini-screen 3: dodge-the-button game -->
+    <div class="teaser-reveal-view" id="teaserDodgeView">
+      <div class="teaser-eyebrow">One More Thing</div>
+      <h1 class="teaser-heading">Catch the button</h1>
+      <p class="teaser-lead">It's a little shy. <span id="teaserDodgeCount">5</span> tries until it gives up.</p>
+      <div class="teaser-dodge-arena" id="teaserDodgeArena">
+        <button class="teaser-next-btn teaser-dodge-btn" id="teaserDodgeBtn">
+          Continue
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+      <p class="teaser-dodge-msg" id="teaserDodgeMsg">Go ahead, try to click it.</p>
+    </div>
+
+    <!-- Waiting-room mini-screen 4: fake "not a robot" captcha -->
+    <div class="teaser-reveal-view" id="teaserCaptchaView">
+      <div class="teaser-eyebrow">Security Check</div>
+      <h1 class="teaser-heading">Prove you're really her</h1>
+      <p class="teaser-lead">Standard procedure. Please confirm you're not a robot pretending to be excited.</p>
+      <div class="teaser-captcha-box">
+        <label class="teaser-captcha-check">
+          <input type="checkbox" id="teaserCaptchaCheckbox">
+          <span class="teaser-captcha-box-visual" aria-hidden="true"></span>
+          <span>I'm not a robot</span>
+        </label>
+        <p class="teaser-captcha-status" id="teaserCaptchaStatus">Awaiting verification…</p>
+      </div>
+      <button class="teaser-next-btn hidden" id="teaserCaptchaNextBtn">
+        Verified, continue
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <!-- Waiting-room mini-screen 5: are-you-sure confirmation spam -->
+    <div class="teaser-reveal-view" id="teaserConfirmView">
+      <div class="teaser-eyebrow">Final Check</div>
+      <h1 class="teaser-heading">Wait, are you sure?</h1>
+      <p class="teaser-lead" id="teaserConfirmPrompt">Are you sure you're ready to keep going?</p>
+      <div class="teaser-confirm-actions">
+        <button class="teaser-next-btn" id="teaserConfirmYesBtn">
+          Yes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <button class="teaser-secondary-btn" id="teaserConfirmNoBtn">Wait, let me think</button>
+      </div>
+    </div>
+
+    <!-- Waiting-room mini-screen 6: fake ad with a rigged skip timer -->
+    <div class="teaser-reveal-view" id="teaserAdView">
+      <div class="teaser-eyebrow">Advertisement</div>
+      <h1 class="teaser-heading">A word from our sponsor</h1>
+      <div class="teaser-ad-box">
+        <!-- <p class="teaser-ad-text">This sneak peek is brought to you by <strong>Overthinking Inc.</strong> — quality anxiety since forever.</p>
+        <p class="teaser-ad-text">Also: I miss you. That part's not really an ad. That one's real.</p> -->
+        <img src="assets/images/my-ad.png" alt="ad">
+      </div>
+      <button class="teaser-next-btn" id="teaserAdSkipBtn" disabled>
+        Skip Ad in <span id="teaserAdCountdown">8</span>
+      </button>
+    </div>
+
+    <!-- Waiting-room mini-screen 7: fake "patience meter" loading bar -->
+    <div class="teaser-reveal-view" id="teaserPatienceView">
+      <div class="teaser-eyebrow">Almost There</div>
+      <h1 class="teaser-heading">Calibrating your patience</h1>
+      <p class="teaser-lead" id="teaserPatienceStatus">Teaching penguins to slow dance…</p>
+      <div class="teaser-patience-bar"><div class="teaser-patience-fill" id="teaserPatienceFill"></div></div>
+      <button class="teaser-next-btn hidden" id="teaserPatienceNextBtn">
+        Okay, I'm ready
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <!-- Waiting-room mini-screen 8: one genuinely heartfelt moment before the real countdown -->
+    <div class="teaser-reveal-view" id="teaserHeartfeltView">
+      <svg class="teaser-heart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg>
+      <div class="teaser-eyebrow">Before You Go</div>
+      <h1 class="teaser-heading">Just so you know</h1>
+      <p class="teaser-lead">Whatever else today brings, I hope you feel this first: you are so deeply loved, exactly as you are, today and every day after. This countdown was never really about a website — it's counting down to celebrating you. I can't wait.</p>
+      <a href="" class="teaser-next-btn" >
+        See you at midnight 💛
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Floating decorations, scoped to the teaser gate's own electric-blue
+       theme — sparkles, a wondering "?", and soft glowing dots drifting
+       gently around the edges. -->
+  <div class="teaser-floaters" aria-hidden="true">
+    <span class="tf tf-1">✨</span>
+    <span class="tf tf-2">?</span>
+    <span class="tf tf-3">💫</span>
+    <span class="tf tf-4">✨</span>
+    <span class="tf tf-5">?</span>
+    <span class="tf tf-6">💫</span>
+    <span class="tf tf-7">✨</span>
+    <span class="tf tf-8">💭</span>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="js/loading.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/teaser-gate.js"></script>
+</body>
+</html>
