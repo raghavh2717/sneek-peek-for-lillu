@@ -84,13 +84,13 @@ p.lead{
 
 
 /* pop */
-
-.teaser-letter-hint{
-  margin-top:1.3rem;
-  font-family:var(--font-serif);
-  font-style:italic;
-  font-size:0.9rem;
-  color:var(--tz-text-dim);
+.teaser-letter-hint {
+	margin-top: 1.3rem;
+	/* font-family: var(--font-serif); */
+	/* font-style: italic; */
+	font-size: 0.9rem;
+	color: #fff;
+	margin-bottom: -15px;
 }
 
 .teaser-letter-popup{
