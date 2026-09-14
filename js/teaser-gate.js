@@ -19,7 +19,7 @@
    ========================================================================== */
 
 (function () {
-  const TEASER_REVEAL_AT = new Date('2026-09-14T15:09:00'); // <-- change this to whenever the sneak peek should unlock
+  const TEASER_REVEAL_AT = new Date('2026-09-14T13:09:00'); // <-- change this to whenever the sneak peek should unlock
   const MAIN_SITE_URL = 'https://your-main-site-link-here.netlify.app'; // <-- change this to the deployed main project's URL
 
   const gate = document.getElementById('teaserGate');
