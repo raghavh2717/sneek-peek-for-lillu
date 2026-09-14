@@ -97,7 +97,7 @@ p.lead{
 	transform: translate(-50%, -50%) scale(0.9);
 	padding: 2rem 2.2rem;
 	border-radius: 16px;
-	background: #000;
+	background: linear-gradient(135deg, var(--tz-accent), var(--tz-accent-2));
 	color: #04121f;
 	font-family: var(--font-serif);
 	font-size: 1.05rem;
@@ -108,7 +108,7 @@ p.lead{
 	transition: opacity 0.25s ease, transform 0.25s ease;
 	z-index: 999;
 	text-align: left;
-	max-width: min(480px, 85vw);
+	width: 100%;
 	max-height: 70vh;
 	overflow-y: auto;
 }
