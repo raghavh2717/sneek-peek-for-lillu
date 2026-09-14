@@ -403,35 +403,17 @@
 
 // pop js
 
-const letterPhrase = "YOU ARE WORTH THE WAIT";
-const letterChars = letterPhrase.replace(/ /g, '').split('');
-let letterIndex = 0;
-
 const letterBtn = document.getElementById('teaserLetterBtn');
 const letterPopup = document.getElementById('teaserLetterPopup');
-const letterPopupText = document.getElementById('teaserLetterPopupText');
-let letterPopupTimer = null;
-
-function showLetterPopup(text) {
-  if (!letterPopup || !letterPopupText) return;
-  letterPopupText.textContent = text;
-  letterPopup.classList.add('show');
-  clearTimeout(letterPopupTimer);
-  letterPopupTimer = setTimeout(() => {
-    letterPopup.classList.remove('show');
-  }, 1100);
-}
+const letterCloseBtn = document.getElementById('teaserLetterCloseBtn');
 
 if (letterBtn) {
   letterBtn.addEventListener('click', () => {
-    if (letterIndex < letterChars.length) {
-      showLetterPopup(letterChars[letterIndex]);
-      letterIndex++;
-      if (letterIndex === letterChars.length) {
-        letterBtn.textContent = 'See Full Message';
-      }
-    } else {
-      showLetterPopup(letterPhrase);
-    }
+    letterPopup.classList.add('show');
+  });
+}
+if (letterCloseBtn) {
+  letterCloseBtn.addEventListener('click', () => {
+    letterPopup.classList.remove('show');
   });
 }
