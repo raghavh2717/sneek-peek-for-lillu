@@ -80,3 +80,41 @@ p.lead{
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
 }
+
+
+
+/* pop */
+
+.teaser-letter-hint{
+  margin-top:1.3rem;
+  font-family:var(--font-serif);
+  font-style:italic;
+  font-size:0.9rem;
+  color:var(--tz-text-dim);
+}
+
+.teaser-letter-popup{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%) scale(0.7);
+  padding:1.4rem 2.2rem;
+  border-radius:16px;
+  background:linear-gradient(135deg, var(--tz-accent), var(--tz-accent-2));
+  color:#04121f;
+  font-family:var(--font-serif);
+  font-weight:700;
+  font-size:2rem;
+  letter-spacing:0.05em;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.25s ease, transform 0.25s ease;
+  z-index:999;
+  text-align:center;
+  max-width:80vw;
+}
+.teaser-letter-popup.show{
+  opacity:1;
+  transform:translate(-50%, -50%) scale(1);
+}
