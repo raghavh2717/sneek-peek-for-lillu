@@ -83,14 +83,13 @@ p.lead{
 
 
 
-.teaser-letter-hint{
-  margin-top:1.3rem;
-  font-family:var(--font-serif);
-  font-style:italic;
-  font-size:0.9rem;
-  color:var(--tz-text-dim);
+.teaser-letter-hint {
+	margin-top: 1.3rem;
+	/* font-family: var(--font-serif); */
+	font-style: italic;
+	font-size: 0.9rem;
+	color: #fff;
 }
-
 .teaser-letter-popup{
   position:fixed;
   top:50%;
