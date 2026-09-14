@@ -27,6 +27,20 @@
   40%{ transform:scale(0.95); }
   55%{ transform:scale(1.1); }
 }
+.sorry-box {
+	border: 1px dashed #ffe8bd;
+	padding: 28px;
+	background: #393939;
+	border-radius: 15px;
+	margin-top: 18px;
+}
+.sorry-box p {
+	font-size: 22px !important;
+}
+.sorry-box span {
+	/* font-size: 22px !important; */
+	display: block;
+}
 
 .loader-text{
   font-family:var(--font-serif);
